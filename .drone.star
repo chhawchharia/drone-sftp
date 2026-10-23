@@ -34,7 +34,7 @@ def testing(ctx):
         "steps": [
             {
                 "name": "lint",
-                "image": "golang:1.18",
+                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
                 "pull": "always",
                 "commands": [
                     "go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest",
@@ -50,7 +50,7 @@ def testing(ctx):
             },
             {
                 "name": "test",
-                "image": "golang:1.18",
+                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
                 "commands": [
                     "go test -cover ./...",
                 ],
@@ -90,7 +90,7 @@ def linux(ctx, arch):
     steps = [
         {
             "name": "environment",
-            "image": "golang:1.18",
+            "image": "golang:1.26.10-alpine" if arch == "arm" else "golang:1.26.10-alpine" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
             "pull": "always",
             "environment": {
                 "CGO_ENABLED": "0",
@@ -102,7 +102,7 @@ def linux(ctx, arch):
         },
         {
             "name": "build",
-            "image": "golang:1.18",
+            "image": "golang:1.26.10-alpine" if arch == "arm" else "golang:1.26.10-alpine" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
             "environment": {
                 "CGO_ENABLED": "0",
             },
@@ -198,6 +198,7 @@ def windows(ctx, version):
                     "CGO_ENABLED": "0",
                 },
                 "commands": [
+                    ". ./scripts/setup-go-windows.ps1",
                     "go version",
                     "go env",
                 ],

@@ -1,6 +1,8 @@
 module github.com/drone-plugins/drone-sftp
 
-go 1.26.10
+go 1.21
+
+toolchain go1.26.10
 
 require (
 	github.com/drone/drone-go v1.7.1
