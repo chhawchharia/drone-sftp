@@ -33,7 +33,7 @@ pipeline:
                   name: Lint
                   identifier: Lint
                   spec:
-                    connectorRef: Plugins_Docker_Hub_Connector
+                    connectorRef: HHI_Public_Images
                     image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10
                     shell: Sh
                     command: |-
@@ -45,7 +45,7 @@ pipeline:
                   name: Testing
                   identifier: Testing
                   spec:
-                    connectorRef: Plugins_Docker_Hub_Connector
+                    connectorRef: HHI_Public_Images
                     image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10
                     shell: Sh
                     command: go test -cover ./...
@@ -73,7 +73,7 @@ pipeline:
                       name: Build Binary
                       identifier: Run_1
                       spec:
-                        connectorRef: Plugins_Docker_Hub_Connector
+                        connectorRef: HHI_Public_Images
                         image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10
                         shell: Sh
                         command: |-
@@ -145,7 +145,7 @@ pipeline:
                       type: Run
                       name: Build Binary
                       spec:
-                        connectorRef: Plugins_Docker_Hub_Connector
+                        connectorRef: HHI_Public_Images
                         image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10
                         shell: Sh
                         command: |-
