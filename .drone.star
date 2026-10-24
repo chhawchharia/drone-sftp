@@ -34,7 +34,7 @@ def testing(ctx):
         "steps": [
             {
                 "name": "lint",
-                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
+                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
                 "pull": "always",
                 "commands": [
                     "go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest",
@@ -50,7 +50,7 @@ def testing(ctx):
             },
             {
                 "name": "test",
-                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
+                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
                 "commands": [
                     "go test -cover ./...",
                 ],
@@ -90,7 +90,7 @@ def linux(ctx, arch):
     steps = [
         {
             "name": "environment",
-            "image": "golang:1.26.10-alpine" if arch == "arm" else "golang:1.26.10-alpine" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
+            "image": "golang:1.26.10-alpine@sha256:27f2d3b83cfc5803c8078f8e730af0f7c431bf067afaec8f60a36fb763187cba" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
             "pull": "always",
             "environment": {
                 "CGO_ENABLED": "0",
@@ -102,7 +102,7 @@ def linux(ctx, arch):
         },
         {
             "name": "build",
-            "image": "golang:1.26.10-alpine" if arch == "arm" else "golang:1.26.10-alpine" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10",
+            "image": "golang:1.26.10-alpine@sha256:27f2d3b83cfc5803c8078f8e730af0f7c431bf067afaec8f60a36fb763187cba" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
             "environment": {
                 "CGO_ENABLED": "0",
             },
@@ -115,6 +115,8 @@ def linux(ctx, arch):
             "name": "docker",
             "image": "plugins/docker",
             "settings": {
+                'pull_image': True,
+                'no_cache': True,
                 "dockerfile": "docker/Dockerfile.linux.%s" % (arch),
                 "repo": "plugins/sftp",
                 "username": {
@@ -158,7 +160,7 @@ def windows(ctx, version):
         ]
 
         docker = docker + [
-            "docker build --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:%s-windows-%s-amd64 ." % (version, ctx.build.ref.replace("refs/tags/v", ""), version),
+            "docker build --no-cache --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:%s-windows-%s-amd64 ." % (version, ctx.build.ref.replace("refs/tags/v", ""), version),
             "docker run --rm plugins/sftp:%s-windows-%s-amd64 --help" % (ctx.build.ref.replace("refs/tags/v", ""), version),
             "docker push plugins/sftp:%s-windows-%s-amd64" % (ctx.build.ref.replace("refs/tags/v", ""), version),
         ]
@@ -168,7 +170,7 @@ def windows(ctx, version):
         ]
 
         docker = docker + [
-            "docker build --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:windows-%s-amd64 ." % (version, version),
+            "docker build --no-cache --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:windows-%s-amd64 ." % (version, version),
             "docker run --rm plugins/sftp:windows-%s-amd64 --help" % (version),
             "docker push plugins/sftp:windows-%s-amd64" % (version),
         ]
