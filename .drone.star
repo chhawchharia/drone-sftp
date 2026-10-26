@@ -34,7 +34,7 @@ def testing(ctx):
         "steps": [
             {
                 "name": "lint",
-                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
+                "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
                 "pull": "always",
                 "commands": [
                     "go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest",
@@ -50,7 +50,7 @@ def testing(ctx):
             },
             {
                 "name": "test",
-                "image": "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
+                "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
                 "commands": [
                     "go test -cover ./...",
                 ],
@@ -90,7 +90,7 @@ def linux(ctx, arch):
     steps = [
         {
             "name": "environment",
-            "image": "golang:1.26.10-alpine@sha256:27f2d3b83cfc5803c8078f8e730af0f7c431bf067afaec8f60a36fb763187cba" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
+            "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
             "pull": "always",
             "environment": {
                 "CGO_ENABLED": "0",
@@ -102,7 +102,7 @@ def linux(ctx, arch):
         },
         {
             "name": "build",
-            "image": "golang:1.26.10-alpine@sha256:27f2d3b83cfc5803c8078f8e730af0f7c431bf067afaec8f60a36fb763187cba" if arch == "arm" else "harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8",
+            "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
             "environment": {
                 "CGO_ENABLED": "0",
             },

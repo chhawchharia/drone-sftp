@@ -33,8 +33,8 @@ pipeline:
                   name: Lint
                   identifier: Lint
                   spec:
-                    connectorRef: HHI_Public_Images
-                    image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8
+                    connectorRef: Plugins_Docker_Hub_Connector
+                    image: golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82
                     shell: Sh
                     command: |-
                       go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
@@ -45,8 +45,8 @@ pipeline:
                   name: Testing
                   identifier: Testing
                   spec:
-                    connectorRef: HHI_Public_Images
-                    image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8
+                    connectorRef: Plugins_Docker_Hub_Connector
+                    image: golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82
                     shell: Sh
                     command: go test -cover ./...
     - parallel:
@@ -73,8 +73,8 @@ pipeline:
                       name: Build Binary
                       identifier: Run_1
                       spec:
-                        connectorRef: HHI_Public_Images
-                        image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8
+                        connectorRef: Plugins_Docker_Hub_Connector
+                        image: golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82
                         shell: Sh
                         command: |-
                           # force go modules
@@ -100,9 +100,6 @@ pipeline:
                         settings:
                           pull_image: true
                           no_cache: true
-                          base_image_registry: harness0.harness.io
-                          base_image_username: <+secrets.getValue("harness0HARUsername")>
-                          base_image_password: <+secrets.getValue("harness0HARPAT")>
                           username: drone
                           password: <+secrets.getValue("Plugins_Docker_Hub_Pat")>
                           repo: plugins/sftp
@@ -121,8 +118,6 @@ pipeline:
                           PLUGIN_NO_CACHE: "true"
                           PLUGIN_PULL_IMAGE: "true"
                           PLUGIN_ENABLE_CACHE: "false"
-                        baseImageConnectorRefs:
-                          - HHI_Public_Images
                         connectorRef: Plugins_Docker_Hub_Connector
                         repo: plugins/sftp
                         tags:
@@ -156,8 +151,8 @@ pipeline:
                       type: Run
                       name: Build Binary
                       spec:
-                        connectorRef: HHI_Public_Images
-                        image: harness0.harness.io/oci/docker_artifacts/hhi/go:1.26.10@sha256:718fddf012b3a305e936ae9964e5a642036bcb7b4c6c0786e2f78f238d637db8
+                        connectorRef: Plugins_Docker_Hub_Connector
+                        image: golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82
                         shell: Sh
                         command: |-
                           # force go modules
@@ -183,9 +178,6 @@ pipeline:
                         settings:
                           pull_image: true
                           no_cache: true
-                          base_image_registry: harness0.harness.io
-                          base_image_username: <+secrets.getValue("harness0HARUsername")>
-                          base_image_password: <+secrets.getValue("harness0HARPAT")>
                           username: drone
                           password: <+secrets.getValue("Plugins_Docker_Hub_Pat")>
                           repo: plugins/sftp
@@ -204,8 +196,6 @@ pipeline:
                           PLUGIN_NO_CACHE: "true"
                           PLUGIN_PULL_IMAGE: "true"
                           PLUGIN_ENABLE_CACHE: "false"
-                        baseImageConnectorRefs:
-                          - HHI_Public_Images
                         connectorRef: Plugins_Docker_Hub_Connector
                         repo: plugins/sftp
                         tags:
@@ -239,7 +229,7 @@ pipeline:
                       name: Build Binary
                       spec:
                         connectorRef: Plugins_Docker_Hub_Connector
-                        image: golang:1.21
+                        image: golang:1.26.10-windowsservercore-ltsc2022@sha256:c3eadda68ea666345f08d09104362a03a255e7ae1ff42d1b3897f4dbd698e222
                         envVariables:
                           GOTOOLCHAIN: go1.26.10
                         shell: Sh
