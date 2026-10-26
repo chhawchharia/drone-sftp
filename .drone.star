@@ -34,7 +34,7 @@ def testing(ctx):
         "steps": [
             {
                 "name": "lint",
-                "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
+                "image": "golang:1.26.10-bookworm@sha256:632dff7351799a5a9954a48dc06670ade72ee44e8c351cdc0e5a57af2fea21af",
                 "pull": "always",
                 "commands": [
                     "go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest",
@@ -50,7 +50,7 @@ def testing(ctx):
             },
             {
                 "name": "test",
-                "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
+                "image": "golang:1.26.10-bookworm@sha256:632dff7351799a5a9954a48dc06670ade72ee44e8c351cdc0e5a57af2fea21af",
                 "commands": [
                     "go test -cover ./...",
                 ],
@@ -90,7 +90,7 @@ def linux(ctx, arch):
     steps = [
         {
             "name": "environment",
-            "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
+            "image": "golang:1.26.10-bookworm@sha256:632dff7351799a5a9954a48dc06670ade72ee44e8c351cdc0e5a57af2fea21af",
             "pull": "always",
             "environment": {
                 "CGO_ENABLED": "0",
@@ -102,7 +102,7 @@ def linux(ctx, arch):
         },
         {
             "name": "build",
-            "image": "golang:1.26.10@sha256:672c944cfd07599b5f1bb179869270cdc94c6254e41db4d431259693cb286b82",
+            "image": "golang:1.26.10-bookworm@sha256:632dff7351799a5a9954a48dc06670ade72ee44e8c351cdc0e5a57af2fea21af",
             "environment": {
                 "CGO_ENABLED": "0",
             },
