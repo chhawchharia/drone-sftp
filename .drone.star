@@ -115,8 +115,6 @@ def linux(ctx, arch):
             "name": "docker",
             "image": "plugins/docker",
             "settings": {
-                'pull_image': True,
-                'no_cache': True,
                 "dockerfile": "docker/Dockerfile.linux.%s" % (arch),
                 "repo": "plugins/sftp",
                 "username": {
@@ -160,7 +158,7 @@ def windows(ctx, version):
         ]
 
         docker = docker + [
-            "docker build --no-cache --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:%s-windows-%s-amd64 ." % (version, ctx.build.ref.replace("refs/tags/v", ""), version),
+            "docker build --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:%s-windows-%s-amd64 ." % (version, ctx.build.ref.replace("refs/tags/v", ""), version),
             "docker run --rm plugins/sftp:%s-windows-%s-amd64 --help" % (ctx.build.ref.replace("refs/tags/v", ""), version),
             "docker push plugins/sftp:%s-windows-%s-amd64" % (ctx.build.ref.replace("refs/tags/v", ""), version),
         ]
@@ -170,7 +168,7 @@ def windows(ctx, version):
         ]
 
         docker = docker + [
-            "docker build --no-cache --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:windows-%s-amd64 ." % (version, version),
+            "docker build --pull -f docker/Dockerfile.windows.%s -t plugins/sftp:windows-%s-amd64 ." % (version, version),
             "docker run --rm plugins/sftp:windows-%s-amd64 --help" % (version),
             "docker push plugins/sftp:windows-%s-amd64" % (version),
         ]

@@ -62,8 +62,6 @@ steps:
 - name: docker
   image: plugins/docker
   settings:
-    pull_image: true
-    no_cache: true
     dockerfile: docker/Dockerfile.linux.amd64
     repo: plugins/sftp
     username:
@@ -108,8 +106,6 @@ steps:
 - name: docker
   image: plugins/docker
   settings:
-    pull_image: true
-    no_cache: true
     dockerfile: docker/Dockerfile.linux.arm64
     repo: plugins/sftp
     username:
@@ -156,8 +152,6 @@ steps:
 - name: docker
   image: plugins/docker
   settings:
-    pull_image: true
-    no_cache: true
     dockerfile: docker/Dockerfile.windows.1809
     repo: plugins/sftp
     username:
@@ -198,7 +192,6 @@ steps:
   environment:
     CGO_ENABLED: '0'
   commands:
-  - . ./scripts/setup-go-windows.ps1
   - go version
   - go env
 - name: build
@@ -206,13 +199,10 @@ steps:
   environment:
     CGO_ENABLED: '0'
   commands:
-  - . ./scripts/setup-go-windows.ps1
   - go build -v -ldflags "-X main.version=" -a -tags netgo -o release/windows/amd64/drone-sftp.exe .
 - name: docker
   image: plugins/docker
   settings:
-    pull_image: true
-    no_cache: true
     dockerfile: docker/Dockerfile.windows.ltsc2022
     repo: plugins/sftp
     username:
